@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <style type="text/css" media="screen">
+        #editor {width: 800px;height: 400px; position: absolute; top: 0; right: 0; bottom: 0; left: 0; font-size: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="editor"></div>
+<script src="js/ace_clickhouse.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/model-sql.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai"); //主题
+    editor.getSession().setMode("ace/mode/clickhouse"); // 语言高亮
+    // editor.setReadOnly(false);//设置只读（true时只读，用于展示代码）
+    //自动换行,设置为off关闭
+    editor.setOption("wrap", "free");
+    //以下部分是设置输入代码提示的
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+    editor.getSession().setUseWrapMode(true); //支持代码折叠
+    //editor.getSession().setMode(&#39;ace/mode/javascript&#39;); //设置语言模式
+    editor.selection.getCursor(); //获取光标所在行或列
+    //editor.gotoLine(lineNumber); //跳转到行
+    editor.session.getLength(); //获取总行数
+    // editor.insert("Something cool");
+    editor.getSession().setUseSoftTabs(true);
+    
+    //注册表的定义到ace来提供智能提示
+    window.ace_langTools.addCompleter(window.sqlTablesCompleter);
+</script>
+</body>
+</html>
