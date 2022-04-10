@@ -42,54 +42,6 @@ window.sqlTablesCompleter = {
         lines.push(line);
         return ["<b>", item.text, "</b>", "<hr></hr>", lines.join("&nbsp<br>")].join("");
     },
-    buildExploreQuery: function (type) {
-        var query;
-        switch (type) {
-            case 'TABLES':
-                query = 'SELECT name ' +
-                    'FROM system.tables ' +
-                    'WHERE database = \'' + this.target.database + '\' ' +
-                    ' and name like \'%__%\' and name like \'%_dt\'  ' +
-                    'ORDER BY name';
-                break;
-            case 'DATE':
-                query = 'SELECT name ' +
-                    'FROM system.columns ' +
-                    'WHERE database = \'' + this.target.database + '\' AND ' +
-                    'table = \'' + this.target.table + '\' AND ' +
-                    'type = \'Date\' ' +
-                    'ORDER BY name';
-                break;
-            case 'DATETIME':
-                query = 'SELECT name ' +
-                    'FROM system.columns ' +
-                    'WHERE database = \'' + this.target.database + '\' AND ' +
-                    'table = \'' + this.target.table + '\' AND ' +
-                    'type LIKE \'DateTime%\' ' +
-                    'ORDER BY name';
-                break;
-            case 'TIMESTAMP':
-                query = 'SELECT name ' +
-                    'FROM system.columns ' +
-                    'WHERE database = \'' + this.target.database + '\' AND ' +
-                    'table = \'' + this.target.table + '\' AND ' +
-                    'type = \'UInt32\' ' +
-                    'ORDER BY name';
-                break;
-            case 'DATABASES':
-                query = 'SELECT name ' +
-                    'FROM system.databases ' +
-                    'ORDER BY name';
-                break;
-            case 'COLUMNS':
-                query = 'SELECT name text, type value ' +
-                    'FROM system.columns ' +
-                    'WHERE database = \'' + this.target.database + '\' AND ' +
-                    'table = \'' + this.target.table + '\'';
-                break;
-        }
-        return query;
-    },
     _post: function (sql, callback) {
         //这里需要改造成去请求表的schema的数据 
         callback(JSON.parse("{\n" +
