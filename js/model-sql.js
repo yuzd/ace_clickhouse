@@ -12,7 +12,7 @@ window.sqlTablesCompleter = {
             return;
         }
 
-        var sql = self.buildExploreQuery("COLUMNS");
+        var sql = '这是请求到后端拿到字段映射关系的sql'//self.buildExploreQuery("COLUMNS");
         self._post(sql, function (response) {
             self.completerCache[key] = response.data.map(function (item) {
                 return {
